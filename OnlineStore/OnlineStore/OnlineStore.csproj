@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Patterns\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

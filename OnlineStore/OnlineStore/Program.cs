@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using OnlineStore;
 using OnlineStore.Interfaces;
 using OnlineStore.Repositories;
+using OnlineStore.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<AppDbContext>(
 );
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<OrderService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
