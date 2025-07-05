@@ -7,10 +7,12 @@ namespace OnlineStore.Services;
 public class OrderService
 {
     private readonly IOrderRepository _repository;
+    private readonly NotificationDispatcher _notifier;
 
-    public OrderService(IOrderRepository repository)
+    public OrderService(IOrderRepository repository, NotificationDispatcher notifier)
     {
         _repository = repository;
+        _notifier = notifier;
     }
 
     public async Task<Order> CreateOrderAsync(List<OrderItem> items)
@@ -24,6 +26,7 @@ public class OrderService
 
         var order = builder.SetStatus("Confirmed").Build();
         await _repository.AddAsync(order);
+        _notifier.NotifyAll($"Nueva orden creada con total: {order.Total:C}");
 
         return order;
     }

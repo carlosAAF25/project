@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineStore;
+using OnlineStore.Factories;
 using OnlineStore.Interfaces;
 using OnlineStore.Repositories;
 using OnlineStore.Services;
@@ -17,6 +18,11 @@ builder.Services.AddScoped<OrderService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var dispatcher = new NotificationDispatcher();
+dispatcher.Register(NotificationFactory.Create("email"));
+dispatcher.Register(NotificationFactory.Create("sms"));
+builder.Services.AddSingleton(dispatcher);
 
 var app = builder.Build();
 
